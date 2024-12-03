@@ -8,10 +8,12 @@ import { createPinia } from "pinia";
 
 import ToastService from "primevue/toastservice";
 
-import PrimeVue from "primevue/config";
+import PrimeVue from 'primevue/config';
 
 import { globalComponents, validator } from "./plugins";
 
+import "primevue/resources/themes/saga-blue/theme.css";
+import "primevue/resources/primevue.min.css";
 import "./assets/styles/main.scss";
 
 const pinia = createPinia();

@@ -1,15 +1,38 @@
 <template>
-  <div>
-    Foo
+  <div class="flex flex-col gap-8">
+    <Box>
+      <p class="capitalize text-text-400 mb-3">Registered Users</p>
+      <Skeleton v-if="isLoading" width="10rem"></Skeleton>
+      <h4 v-else class="text-text-900 font-medium">{{ registeredUsers }}</h4>
+    </Box>
+    <Box>
+      <p class="capitalize text-text-400 mb-3">Active Requests</p>
+      <h4 class="text-text-900 font-medium">129</h4></Box
+    >
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { useApi } from "@/composables/useApi";
+import type { UsersRequest } from "@/modules/user/types";
+import { onMounted, ref } from "vue";
 
-const x = ref(2)
+const { request } = useApi();
+
+const registeredUsers = ref(0);
+const isLoading = ref(true);
+const getNumberOfUsers = async () => {
+  try {
+    const response = await request<UsersRequest>("/users");
+    registeredUsers.value = response.total;
+  } catch (err) {
+    console.log(err);
+  } finally {
+    isLoading.value = false;
+  }
+};
+
+onMounted(async () => {
+  await getNumberOfUsers();
+})
 </script>
-
-<style scoped>
-
-</style>

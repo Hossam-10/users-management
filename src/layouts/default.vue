@@ -32,7 +32,7 @@
           'md:ml-16': !isSidebarExpanded && !isMobile,
         }"
       >
-        Foo
+        <router-view />
       </main>
     </div>
   </div>

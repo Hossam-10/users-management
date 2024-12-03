@@ -1,5 +1,5 @@
-@forward "./tailwind";
-@forward "./primevue-reset";
+@use "tailwind";
+@use "primevue-reset";
 
 a {
   &:hover {

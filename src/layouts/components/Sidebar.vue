@@ -8,13 +8,13 @@
       isMobile && 'shadow-lg',
     ]"
   >
-    <nav class="p-4">
+    <div class="p-4">
       <ul class="space-y-2">
         <li v-for="item in menuItems" :key="item.name">
           <router-link
             :to="item.to"
             class="flex items-center p-2 rounded-md hover:bg-gray-700 transition-colors duration-200"
-            exact-active-class="bg-green-600"
+            exact-active-class="!bg-green-600"
           >
             <component :is="item.icon" :size="24" />
             <span
@@ -26,7 +26,7 @@
           </router-link>
         </li>
       </ul>
-    </nav>
+    </div>
   </aside>
 </template>
 
