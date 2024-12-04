@@ -1,7 +1,7 @@
 <template>
   <button
     :class="[
-      'capitalize',
+      'capitalize text-white rounded',
       classContent,
       disabled ? `${disabledClass} cursor-not-allowed` : '',
     ]"

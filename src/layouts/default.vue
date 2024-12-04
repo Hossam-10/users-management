@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-100">
+  <div class="min-h-screen bg-gray-100 overflow-x-hidden">
     <!-- Navbar -->
     <Navbar @toggleSidebar="toggleSidebar" />
 
@@ -26,7 +26,7 @@
 
       <!-- Main Content -->
       <main
-        class="flex-1 p-6 transition-all duration-300 ease-in-out"
+        class="flex-1 p-6 transition-all duration-300 ease-in-out max-w-full"
         :class="{
           'md:ml-64': isSidebarExpanded && !isMobile,
           'md:ml-16': !isSidebarExpanded && !isMobile,

@@ -70,6 +70,7 @@ export type User = {
     userAgent: string;
     crypto: CryptoDetails;
     role: Role;
+    status?: string;
 }
 
 export type UsersRequest = {

@@ -13,17 +13,14 @@
 </template>
 
 <script setup lang="ts">
-import { useApi } from "@/composables/useApi";
-import type { UsersRequest } from "@/modules/user/types";
 import { onMounted, ref } from "vue";
-
-const { request } = useApi();
+import { getUsers } from "@/modules/user/services";
 
 const registeredUsers = ref(0);
 const isLoading = ref(true);
 const getNumberOfUsers = async () => {
   try {
-    const response = await request<UsersRequest>("/users");
+    const response = await getUsers();
     registeredUsers.value = response.total;
   } catch (err) {
     console.log(err);
@@ -34,5 +31,5 @@ const getNumberOfUsers = async () => {
 
 onMounted(async () => {
   await getNumberOfUsers();
-})
+});
 </script>

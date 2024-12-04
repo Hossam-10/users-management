@@ -14,11 +14,13 @@
           {{ label }}
         </span>
         <div class="w-full relative" :class="inputContainerClass">
-          <slot name="icon"></slot>
+          <div class="absolute top-1/2 translate-y-[-50%] left-4">
+            <slot name="icon"></slot>
+          </div>
           <InputText
             @keyup="$emit('write', value)"
             :class="[
-              'w-full py-[0.875rem] rounded border-[0.047rem] border-solid border-strk-100 ps-4 text-sm text-text-900',
+              'w-full py-2 rounded border-[0.047rem] border-solid border-strk-100 ps-4 text-sm text-text-900',
               { 'is-invalid': errors.length > 0 },
               { 'cursor-not-allowed': disabled },
               inputClass,
