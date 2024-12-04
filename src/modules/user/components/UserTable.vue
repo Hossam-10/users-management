@@ -9,11 +9,6 @@
     </Column>
     <Column field="email" header="Email"></Column>
     <Column field="phone" header="Phone"></Column>
-    <Column field="status" header="Status">
-      <template #body="slotProps">
-        <span class="capitalize">{{ slotProps.data.status }}</span>
-      </template>
-    </Column>
     <Column field="actions" header="Actions">
       <template #body="slotProps">
         <div class="flex items-center gap-2">
