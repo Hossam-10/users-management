@@ -63,7 +63,7 @@ const closeSidebar = () => {
 };
 
 const checkMobile = () => {
-  isMobile.value = window.innerWidth < 768;
+  isMobile.value = window.innerWidth <= 1024;
   if (!isMobile.value) {
     isSidebarOpen.value = false;
   }

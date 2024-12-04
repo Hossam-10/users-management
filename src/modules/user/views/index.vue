@@ -11,7 +11,7 @@
 
     <!--Users table-->
     <Box>
-      <div class="w-full flex justify-center lg:justify-end mb-4">
+      <div class="w-full flex justify-end mb-4">
         <InputField
           name="search"
           placeholder="Search by name"
@@ -104,10 +104,6 @@ const getUsersRequest = async (getStatus: string = "") => {
       searchParamsHandler(requestQuery.value)
     );
     usersRequest.value = response;
-    usersRequest.value.users = usersRequest.value.users.map((user) => ({
-      ...user,
-      status: Math.random() > 0.5 ? "active" : "not active",
-    }));
   } catch {
     showError("Something went wrong while getting users data");
   } finally {

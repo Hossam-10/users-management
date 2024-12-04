@@ -1,12 +1,9 @@
 <template>
   <Dialog
+    class="w-[90%] md:w-[70%] lg:w-[50%]"
     v-model:visible="modelValue"
     modal
     :header="title"
-    :style="{
-      width: '640px',
-    }"
-    :breakpoints="{ '960px': '75vw', '641px': '95vw' }"
     ref="dialog"
     :draggable="false"
   >

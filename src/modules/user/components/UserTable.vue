@@ -1,7 +1,7 @@
 <template>
   <DataTable :value="users" :loading="loading">
     <template #loading> Loading customers data. Please wait. </template>
-
+    <template #empty> No users found. </template>
     <Column field="fullName" header="Name">
       <template #body="slotProps">
         {{ slotProps.data.firstName }} {{ slotProps.data.lastName }}
@@ -14,7 +14,7 @@
         <span class="capitalize">{{ slotProps.data.status }}</span>
       </template>
     </Column>
-    <Column field="actions" header="">
+    <Column field="actions" header="Actions">
       <template #body="slotProps">
         <div class="flex items-center gap-2">
           <AppButton
