@@ -1,9 +1,6 @@
-import { useDynamicCookie } from '@/composables/useDynamicCookie';
 import axios from 'axios';
-import type { AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import type { AxiosInstance, AxiosResponse } from 'axios';
 
-const { getCookie: getUserCookie } = useDynamicCookie("user");
-// Create the Axios instance
 const api: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_URL,
   headers: {
@@ -11,17 +8,6 @@ const api: AxiosInstance = axios.create({
     Accept: 'application/json',
   },
 });
-
-api.interceptors.request.use(
-  (config: InternalAxiosRequestConfig) => {
-    // const user = getUserCookie();
-    // if (user?.token) {
-    //   (config.headers as Record<string, string>)['Authorization'] = `Bearer ${user.token}`;
-    // }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
 
 api.interceptors.response.use(
   (response: AxiosResponse) => response,
