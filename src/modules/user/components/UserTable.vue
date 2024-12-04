@@ -23,7 +23,7 @@
           >
             <Trash2 :size="16" color="red" />
           </AppButton>
-          <AppButton classContent="bg-blue-100 !p-2 rounded-md">
+          <AppButton classContent="bg-blue-100 !p-2 rounded-md" @click="$emit('editUser', slotProps.data)">
             <Pencil :size="16" color="blue" />
           </AppButton>
         </div>
@@ -45,6 +45,7 @@ const props = defineProps<{
 }>();
 defineEmits<{
   (e: "deleteUser", id: number): void;
+  (e: "editUser", user: User): void;
 }>()
 </script>
 

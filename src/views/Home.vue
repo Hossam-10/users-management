@@ -15,15 +15,17 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { getUsers } from "@/modules/user/services";
+import { useToastPlugin } from "@/composables/useToastPlugin";
 
+const { showError } = useToastPlugin();
 const registeredUsers = ref(0);
 const isLoading = ref(true);
 const getNumberOfUsers = async () => {
   try {
     const response = await getUsers();
     registeredUsers.value = response.total;
-  } catch (err) {
-    console.log(err);
+  } catch {
+    showError("Something went wrong while getting users statistics");
   } finally {
     isLoading.value = false;
   }

@@ -2,7 +2,9 @@
   <div>
     <div class="flex justify-between items-center mb-8">
       <h2 class="text-text-900">Users</h2>
-      <AppButton classContent="bg-green-600 !rounded-lg !p-3"
+      <AppButton
+        classContent="bg-green-600 !rounded-lg !p-3"
+        @click="setUserFormDialogState(true)"
         >Add User</AppButton
       >
     </div>
@@ -25,6 +27,7 @@
           :users="usersRequest.users"
           :loading="isLoading"
           @deleteUser="setDeletedUser"
+          @editUser="setEditedUser"
         />
         <Paginator
           v-show="usersRequest.users.length"
@@ -44,12 +47,20 @@
       @getUsers="getUsersRequest"
       v-model="deleteUserDialogState"
     />
+
+    <!--Add and update user dialog-->
+    <UserFormDialog
+      v-if="userFormDialogState"
+      :user="editedUser"
+      @getUsers="getUsersRequest"
+      v-model="userFormDialogState"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, defineAsyncComponent, onMounted, ref, watch } from "vue";
-import type { UsersRequest } from "../types";
+import type { User, UsersRequest } from "../types";
 import { getUsers, getSearchedUsers, deleteUserData } from "../services";
 import { searchParamsHandler } from "@/helpers/appHelpers";
 import { debounce } from "@/helpers/debounce";
@@ -57,8 +68,13 @@ import { Search } from "lucide-vue-next";
 import type { PageState } from "primevue/paginator";
 
 import UserTable from "../components/UserTable.vue";
+import { useToastPlugin } from "@/composables/useToastPlugin";
+
 const DeleteUserDialog = defineAsyncComponent(
   () => import("../components/DeleteUserDialog.vue")
+);
+const UserFormDialog = defineAsyncComponent(
+  () => import("../components/UserFormDialog.vue")
 );
 
 const isLoading = ref(true);
@@ -79,7 +95,8 @@ const requestQuery = computed(() => {
     q: search.value,
   };
 });
-const getUsersRequest = async (getStatus: string = '') => {
+const { showError } = useToastPlugin();
+const getUsersRequest = async (getStatus: string = "") => {
   try {
     getStatus === "reset" && (page.value = 1);
     const requestMethod = search.value ? getSearchedUsers : getUsers;
@@ -91,8 +108,8 @@ const getUsersRequest = async (getStatus: string = '') => {
       ...user,
       status: Math.random() > 0.5 ? "active" : "not active",
     }));
-  } catch (err) {
-    console.log(err);
+  } catch {
+    showError("Something went wrong while getting users data");
   } finally {
     isLoading.value = false;
   }
@@ -121,6 +138,21 @@ const setDeletedUser = (id: number) => {
   deletedUserId.value = id;
   setDeleteDialogState(true);
 };
+
+//add and edit user
+const userFormDialogState = ref(false);
+const setUserFormDialogState = (val: boolean) => {
+  userFormDialogState.value = val;
+};
+const editedUser = ref<Maybe<User>>(null);
+const setEditedUser = (user: User) => {
+  editedUser.value = user;
+  setUserFormDialogState(true);
+};
+
+watch(userFormDialogState, () => {
+  !userFormDialogState.value && editedUser.value && (editedUser.value = null);
+});
 
 onMounted(async () => {
   await getUsersRequest();
