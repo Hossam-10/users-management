@@ -8,6 +8,6 @@ export const getUsers = (query: string = '') => {
     return request<UsersRequest>(url);
 };
 
-export const getSearchedUsers = (query: string) => {
-    return request<UsersRequest>(`/users/search?${query}`);
-};
+export const getSearchedUsers = (query: string) => request<UsersRequest>(`/users/search?${query}`);
+
+export const deleteUserData = (id: number) => request(`/users/${id}`, { method: "DELETE" });

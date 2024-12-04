@@ -17,11 +17,14 @@
     <Column field="actions" header="">
       <template #body="slotProps">
         <div class="flex items-center gap-2">
-          <AppButton classContent="bg-red-100 !p-2 rounded-md">
-            <Trash2 size="16" color="red" />
+          <AppButton
+            classContent="bg-red-100 !p-2 rounded-md"
+            @click="$emit('deleteUser', slotProps.data.id)"
+          >
+            <Trash2 :size="16" color="red" />
           </AppButton>
           <AppButton classContent="bg-blue-100 !p-2 rounded-md">
-            <Pencil size="16" color="blue" />
+            <Pencil :size="16" color="blue" />
           </AppButton>
         </div>
       </template>
@@ -40,6 +43,9 @@ const props = defineProps<{
   users: User[];
   loading: boolean;
 }>();
+defineEmits<{
+  (e: "deleteUser", id: number): void;
+}>()
 </script>
 
 <style scoped lang="scss">
@@ -54,7 +60,6 @@ const props = defineProps<{
       width: 200px;
       word-break: break-all;
     }
-
   }
 }
 </style>

@@ -12,16 +12,6 @@ declare global {
     message: string;
     success: boolean;
   };
-
-  type DialogTabItem = {
-    title: string;
-    submitText?: string;
-    cancelText?: string;
-    submitEvent?: string;
-    loading?: boolean;
-    hasBackButton?: boolean;
-    hasCancelEvent?: boolean;
-  };
 }
 
 export {}

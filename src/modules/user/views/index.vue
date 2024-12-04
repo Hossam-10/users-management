@@ -21,7 +21,11 @@
       </div>
 
       <div class="w-full overflow-auto">
-        <UserTable :users="usersRequest.users" :loading="isLoading" />
+        <UserTable
+          :users="usersRequest.users"
+          :loading="isLoading"
+          @deleteUser="setDeletedUser"
+        />
         <Paginator
           v-show="usersRequest.users.length"
           class="mt-8 paginator bg-transparent"
@@ -32,20 +36,30 @@
         />
       </div>
     </Box>
+
+    <!--Delete user dialog-->
+    <DeleteUserDialog
+      v-if="deleteUserDialogState"
+      :userId="deletedUserId!"
+      @getUsers="getUsersRequest"
+      v-model="deleteUserDialogState"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from "vue";
-import { useRoute } from "vue-router";
+import { computed, defineAsyncComponent, onMounted, ref, watch } from "vue";
 import type { UsersRequest } from "../types";
-import { getUsers, getSearchedUsers } from "../services";
+import { getUsers, getSearchedUsers, deleteUserData } from "../services";
 import { searchParamsHandler } from "@/helpers/appHelpers";
 import { debounce } from "@/helpers/debounce";
-
-import UserTable from "../components/UserTable.vue";
 import { Search } from "lucide-vue-next";
 import type { PageState } from "primevue/paginator";
+
+import UserTable from "../components/UserTable.vue";
+const DeleteUserDialog = defineAsyncComponent(
+  () => import("../components/DeleteUserDialog.vue")
+);
 
 const isLoading = ref(true);
 const usersRequest = ref<UsersRequest>({
@@ -65,8 +79,9 @@ const requestQuery = computed(() => {
     q: search.value,
   };
 });
-const getUsersRequest = async () => {
+const getUsersRequest = async (getStatus: string = '') => {
   try {
+    getStatus === "reset" && (page.value = 1);
     const requestMethod = search.value ? getSearchedUsers : getUsers;
     const response = await requestMethod(
       searchParamsHandler(requestQuery.value)
@@ -94,6 +109,17 @@ watch(search, () => {
 const handlePagination = (paginationInfo: PageState) => {
   page.value = paginationInfo.page + 1;
   getUsersRequest();
+};
+
+//delete user
+const deleteUserDialogState = ref(false);
+const setDeleteDialogState = (val: boolean) => {
+  deleteUserDialogState.value = val;
+};
+const deletedUserId = ref<Maybe<number>>(null);
+const setDeletedUser = (id: number) => {
+  deletedUserId.value = id;
+  setDeleteDialogState(true);
 };
 
 onMounted(async () => {
