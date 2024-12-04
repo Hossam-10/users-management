@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1 {
+    font-size: 2.75rem; // 44px
+  }
+
+  h2 {
+    font-size: 2.5rem; // 40px
+  }
+
+  h3 {
+    font-size: 2.25rem; // 36px
+  }
+
+  h4 {
+    font-size: 2rem; // 32px
+  }
+
+  h5 {
+    font-size: 1.75rem; // 28px
+  }
+
+  h6 {
+    font-size: 1.5rem; // 24px
+    font-weight: 600;
+  }
+
+  a {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline !important;
+    }
+  }
+}
+
+@layer utilities {
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+
+  .form-group {
+    @apply flex flex-col mb-4;
+  }
+}
+@for $i from 1 through 12 {
+  .col-span-#{$i} {
+    grid-column: span #{$i} / span #{$i};
+  }
+}
+
+.box-border {
+  @apply border-[0.5px] border-solid border-strk-75;
+}

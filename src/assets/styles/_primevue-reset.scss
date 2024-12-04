@@ -1,0 +1,108 @@
+.p-inputtext:enabled:focus {
+  box-shadow: none;
+}
+
+//sidebar
+.p-sidebar .p-sidebar-header {
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+//checkbox
+.p-checkbox {
+  &.p-component {
+    width: 16px;
+    height: 16px;
+    .p-checkbox-box {
+      width: 16px;
+      height: 16px;
+      border: 2px solid #ced4da;
+      background: #ffffff;
+      border-radius: 3px;
+    }
+  }
+}
+
+//dialog
+.p-dialog {
+  border-radius: 16px;
+  background: white;
+  .p-dialog-header {
+    @apply pt-[1.813rem] pb-[1.688rem] px-8 bg-background-50 flex justify-between items-center mb-6;
+  }
+  .p-dialog-content {
+    padding: 0;
+    color: black;
+  }
+  .p-dialog-header {
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+  }
+  .p-dialog-footer {
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+  }
+}
+
+//divider
+.p-divider.p-divider-horizontal {
+  height: 1px;
+  background: theme("colors.strk.75");
+  margin: 0;
+  padding: 0;
+}
+
+//tabmenu
+.p-tabmenu {
+  display: inline-block;
+  padding: 8px 16px;
+  background: white;
+  border-radius: 12px;
+  .p-tabmenu-nav {
+    background: transparent;
+    gap: 24px;
+    .p-tabmenuitem {
+      background: transparent;
+      padding: 10px 16px;
+      color: theme("colors.text.300");
+      font-size: 14px;
+      line-height: 24px;
+      border-radius: 8px;
+      a {
+        padding: 0;
+      }
+    }
+    .p-highlight {
+      background: theme("colors.secondary.50");
+      color: theme("colors.secondary.900");
+      font-weight: 500;
+    }
+    .p-tabmenuitem a {
+      background: transparent;
+    }
+  }
+}
+
+//pagination
+.p-paginator {
+  background-color: transparent !important;
+  button {
+    margin: 0.143rem;
+  }
+  .p-paginator-pages {
+    button:hover {
+      background-color: rgba(0, 0, 0, 0.2);
+      color: rgba(255, 255, 255, 0.87);
+    }
+    .p-highlight {
+      background-color: rgba(0, 0, 0, 0.5) !important;
+      color: rgba(255, 255, 255, 0.87) !important;
+    }
+  }
+  @media screen and (max-width: 47.9375rem){
+    padding: 0.5rem;
+    button {
+      min-width: 1.25rem;
+    }
+  }
+}

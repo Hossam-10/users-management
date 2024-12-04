@@ -1,0 +1,42 @@
+@use "tailwind";
+@use "primevue-reset";
+
+a {
+  &:hover {
+    text-decoration: none !important;
+  }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+input::placeholder {
+  font-size: 14px;
+  font-weight: 300;
+  color: theme("colors.text.300");
+}
+
+.action-btn {
+  @apply rounded-md bg-secondary-300 text-sm font-medium text-text-900;
+}
+
+//transitions
+.tab-slide-enter-from {
+  opacity: 0;
+  transform: translateX(100px);
+}
+.tab-slide-enter-active {
+  transition: all 0.3s ease-out;
+}
+.tab-slide-leave-to {
+  opacity: 0;
+  transform: translateX(-100px);
+}
+.tab-slide-leave-active {
+  transition: all 0.3s ease-in;
+}
